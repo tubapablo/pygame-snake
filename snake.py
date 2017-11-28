@@ -1,7 +1,7 @@
 '''
 Snake game.
 Authors:
-<Byron Wilson>
+<Byron Wilson, Trayan Cherry>
 '''
 
 import pygame

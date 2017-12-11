@@ -79,17 +79,9 @@ def snake_ran_out_of_bounds(snake):
     snake - list of 2-tuples representing the positions of each snake segment
     Note that the grid is GRID_WIDTH cells wide and GRID_HEIGHT cells high.
     """
-    if (GRID_WIDTH,GRID_WIDTH - 1) <= snake[0]:
+    if snake[0][0] > GRID_WIDTH - 0 or snake[0][0] < 0:
         return True
-    elif (GRID_HEIGHT,GRID_HEIGHT - 1) <= snake[0]:
-        return True
-    elif (GRID_WIDTH,GRID_HEIGHT) <= snake[0]:
-        return True
-    elif (GRID_HEIGHT, GRID_WIDTH) <= snake[0]:
-        return True
-    elif (GRID_WIDTH -1 , GRID_HEIGHT -1) <= snake[0]:
-        return True
-    elif (GRID_HEIGHT -1 , GRID_WIDTH -1 ) <= snake[0]: #the one that works
+    if snake[0][1] > GRID_HEIGHT - 0 or snake[0][1] < 0:
         return True
     return False
 

@@ -1,7 +1,7 @@
 '''
 Snake game.
 Authors:
-<Byron Wilson, Trayan Cherry>
+<Trayan, Byron>
 '''
 
 import pygame
@@ -28,13 +28,13 @@ DIRECTION_UP = (0, -1)
 DIRECTION_DOWN = (0, 1)
 
 # Background color of the snake grid.
-COLOR_BACKGROUND = (255, 255, 255)  # rgb color for white
+COLOR_BACKGROUND = (181, 181, 193)  # rgb color for white
 # This is the color of the snake's head. 
-COLOR_SNAKE_HEAD = (255, 0, 0)      # rgb color for red
+COLOR_SNAKE_HEAD = (145, 70, 56)     # rgb color for red
 # This is the color of the rest of the snake.
 COLOR_SNAKE = (0, 255, 0)           # rgb color for green
 # This is the color for the snake's food.
-COLOR_FOOD = (117, 117, 117)          # rgb color for gray
+COLOR_FOOD = (255, 200, 0)          # rgb color for orange
 # This is the color for the game over text.
 COLOR_GAME_OVER_TEXT = (0, 0, 0)    # rgb color for black
 
@@ -48,10 +48,10 @@ def get_direction(previous_direction, event_key):
         return DIRECTION_LEFT
     elif event_key == pygame.K_UP:
         return DIRECTION_UP
-    elif event_key == pygame.K_RIGHT:
-        return DIRECTION_RIGHT
     elif event_key == pygame.K_DOWN:
         return DIRECTION_DOWN
+    elif event_key == pygame.K_RIGHT:
+        return DIRECTION_RIGHT
     return previous_direction
 
 def create_food_position():
@@ -59,10 +59,9 @@ def create_food_position():
     The first element is the x position. Must be an int between 0 and GRID_WIDTH - 1, inclusively.
     The second element is the y position. Must be an int between 0 and GRID_HEIGHT - 1, inclusively.
     """
-    x = random.randrange(0, GRID_WIDTH - 1)
-    y = random.randrange(0, GRID_HEIGHT -1)
-    
-    return (x,y)
+    x = random.randrange(0, GRID_WIDTH -1)
+    y = random.randrange(0, GRID_WIDTH -1)
+    return(x,y)
 
 def snake_ate_food(snake, food):
     """Returns whether food was eaten by the snake.
@@ -79,19 +78,12 @@ def snake_ran_out_of_bounds(snake):
     snake - list of 2-tuples representing the positions of each snake segment
     Note that the grid is GRID_WIDTH cells wide and GRID_HEIGHT cells high.
     """
-    if (GRID_WIDTH,GRID_WIDTH - 1) <= snake[0]:
+    if snake[0][0] > GRID_WIDTH - 0 or snake[0][0] < 0:
         return True
-    elif (GRID_HEIGHT,GRID_HEIGHT - 1) <= snake[0]:
-        return True
-    elif (GRID_WIDTH,GRID_HEIGHT) <= snake[0]:
-        return True
-    elif (GRID_HEIGHT, GRID_WIDTH) <= snake[0]:
-        return True
-    elif (GRID_WIDTH -1 , GRID_HEIGHT -1) <= snake[0]:
-        return True
-    elif (GRID_HEIGHT -1 , GRID_WIDTH -1 ) <= snake[0]: #the one that works
+    if snake[0][1] > GRID_HEIGHT - 0 or snake[0][1] < 0:
         return True
     return False
+
 
 def snake_intersected_body(snake):
     """Returns whether the snake has ran into itself.
@@ -99,7 +91,11 @@ def snake_intersected_body(snake):
     The snake ran into itself if the position of the head is the same as the position
     of any of its body segments.
     """
+    for body in range(1, len(snake)):
+        if snake[0] == snake[body]:
+            return True
     return False
+    
 
 def get_score(snake):
     """Returns the current score of the game.
@@ -107,9 +103,8 @@ def get_score(snake):
     The user earns 10 points for each of the segments in the snake.
     For example, if the snake has 25 segments, the score is 250.
     """
-    score = 0
-    for body in snake:
-        score += 10
+    score = len(snake) * 10
+    
     return score
 
 def get_game_over_text(score):
@@ -117,7 +112,7 @@ def get_game_over_text(score):
     This text should contain 'Game Over' as well as the score.
     score - integer representing the current score of the game.
     """
-    return 'Game Over.'  'Score: '+ str(score)
+    return 'Game Over. ' + str(score)
 
 def get_snake_speed(snake):
     """Return the number of cells the snake should travel in one second.
@@ -125,6 +120,8 @@ def get_snake_speed(snake):
     The speed at the beginning of the game should be 5. Once the snake has eaten 10 pieces of food,
     the speed of the game should increase (by how much is up to you).
     """
+    if len(snake) >= 20:
+        return 10
     return 5
 
 def move_snake(snake, direction, food):
@@ -281,3 +278,4 @@ def start_game():
 
 # Start the snake game.
 start_game()
+

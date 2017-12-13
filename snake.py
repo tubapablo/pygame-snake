@@ -48,7 +48,7 @@ def get_direction(previous_direction, event_key):
         return DIRECTION_LEFT
     elif event_key == pygame.K_UP and previous_direction != DIRECTION_DOWN:
         return DIRECTION_UP
-    elif event_key == pygame.K_RIGHT and previous_direction != DIRECTION_UP::
+    elif event_key == pygame.K_RIGHT and previous_direction != DIRECTION_UP:
         return DIRECTION_RIGHT
     elif event_key == pygame.K_DOWN and previous_direction != DIRECTION_UP:
         return DIRECTION_DOWN

@@ -44,14 +44,19 @@ def get_direction(previous_direction, event_key):
     event_key - the event that the user pressed; one of https://www.pygame.org/docs/ref/key.html
     If event_key does not correspond with any of the arrows keys, return previous_direction.
     """
-    if event_key == pygame.K_LEFT and previous_direction != DIRECTION_RIGHT:
-        return DIRECTION_LEFT
-    elif event_key == pygame.K_UP and previous_direction != DIRECTION_DOWN:
-        return DIRECTION_UP
-    elif event_key == pygame.K_RIGHT and previous_direction != DIRECTION_UP:
-        return DIRECTION_RIGHT
-    elif event_key == pygame.K_DOWN and previous_direction != DIRECTION_UP:
-        return DIRECTION_DOWN
+    if event_key == pygame.K_LEFT:
+        if previous_direction != DIRECTION_RIGHT:
+            return DIRECTION_LEFT
+    if event_key == pygame.K_UP:
+        if previous_direction != DIRECTION_DOWN:
+            return DIRECTION_UP
+    if event_key == pygame.K_DOWN:
+        if previous_direction != DIRECTION_UP:
+            return DIRECTION_DOWN
+    if event_key == pygame.K_RIGHT:
+        if previous_direction != DIRECTION_LEFT:
+            return DIRECTION_RIGHT
+    return previous_direction
 
 def create_food_position():
     """Returns a random 2-tuple in the grid where the food should be located.

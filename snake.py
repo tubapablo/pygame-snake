@@ -44,13 +44,13 @@ def get_direction(previous_direction, event_key):
     event_key - the event that the user pressed; one of https://www.pygame.org/docs/ref/key.html
     If event_key does not correspond with any of the arrows keys, return previous_direction.
     """
-    if event_key == pygame.K_LEFT:
+    if event_key == pygame.K_LEFT and previous_direction != DIRECTION_LEFT:
         return DIRECTION_LEFT
-    elif event_key == pygame.K_UP:
+    elif event_key == pygame.K_UP  and previous_direction != DIRECTION_UP:
         return DIRECTION_UP
-    elif event_key == pygame.K_RIGHT:
+    elif event_key == pygame.K_RIGHT and previous_direction != DIRECTION_RIGHT:
         return DIRECTION_RIGHT
-    elif event_key == pygame.K_DOWN:
+    elif event_key == pygame.K_DOWN and previous_direction != DIRECTION_DDWN::
         return DIRECTION_DOWN
     return previous_direction
 
@@ -118,6 +118,8 @@ def get_snake_speed(snake):
     The speed at the beginning of the game should be 5. Once the snake has eaten 10 pieces of food,
     the speed of the game should increase (by how much is up to you).
     """
+    if len(snake) >= 20:
+        return 10
     return 5
 
 def move_snake(snake, direction, food):
